@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="userT">
+    <item>USER</item>
+    <item>BUSINESS</item>
+    <item>EVENT PLANNER</item>
+    </string-array>
+</resources>

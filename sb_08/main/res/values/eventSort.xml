@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="eventSort">
+        <item>Date (Ascending)</item>
+        <item>Date (Descending)</item>
+        <item>Current Location (Ascending)</item>
+        <item>Current Location (Descending)</item>
+        <item>Inputted Location (Closest)</item>
+        <item>Inputted Location (Furthest)</item>
+        <item>Time (Ascending)</item>
+        <item>Time (Descending)</item>
+    </string-array>
+
+</resources>

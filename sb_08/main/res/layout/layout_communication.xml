@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="15dp">
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:id="@+id/caller"
+        android:text="Caller"
+        android:textSize="17sp"
+
+        />
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:id="@+id/receiver"
+        android:text="Receiver"
+        android:textSize="17sp"
+        android:layout_toEndOf="@id/caller"
+        android:layout_marginLeft="30dp"
+        />
+</RelativeLayout>

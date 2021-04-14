@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.roundabout">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".webSocketBypassClass"
+            android:parentActivityName=".MainActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".communicationWebSocket"
+            android:parentActivityName=".secondpage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".secondpage" />
+        </activity>
+        <activity
+            android:name=".newSignUp"
+            android:parentActivityName=".business">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".business" />
+        </activity>
+        <activity
+            android:name=".businessSplash"
+            android:parentActivityName=".secondpage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".secondpage" />
+        </activity>
+        <activity
+            android:name=".userSplash"
+            android:parentActivityName=".secondpage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".secondpage" />
+        </activity>
+        <activity
+            android:name=".businessSignedup"
+            android:parentActivityName=".eventSplash">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".eventSplash" />
+        </activity>
+        <activity
+            android:name=".eventSplash"
+            android:parentActivityName=".secondpage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".secondpage" />
+        </activity>
+        <activity
+            android:name=".newEventInput"
+            android:parentActivityName=".eventspage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".eventspage" />
+        </activity>
+        <activity android:name=".testActivity" />
+        <activity
+            android:name=".eventspage"
+            android:parentActivityName=".secondpage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".secondpage" />
+        </activity>
+        <activity
+            android:name=".DisplayUsersActivity"
+            android:parentActivityName=".MainActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".DisplayPlannerActivity"
+            android:parentActivityName=".MainActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".secondpage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".registerScreen"
+            android:parentActivityName=".secondpage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".secondpage" />
+        </activity>
+        <activity
+            android:name=".userpage"
+            android:parentActivityName=".secondpage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".secondpage" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".secondpage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".secondpage" />
+        </activity>
+        <activity
+            android:name=".business"
+            android:parentActivityName=".businessSplash">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".businessSplash" />
+        </activity>
+    </application>
+
+</manifest>

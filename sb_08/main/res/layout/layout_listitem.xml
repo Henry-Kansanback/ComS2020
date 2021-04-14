@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:id="@+id/parent_layout">
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:id="@+id/nametxt"
+        android:text="Username"
+        android:textIsSelectable="true"
+        android:textColor="#000"/>
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:id="@+id/passtxt"
+        android:text="Password"
+        android:textColor="#000"
+        android:layout_toRightOf="@id/nametxt"
+        />
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:id="@+id/citytxt"
+        android:text="City"
+        android:textColor="#000"
+        android:layout_toRightOf="@id/passtxt"
+        />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:id="@+id/usertxt"
+        android:text="UserType"
+        android:textColor="#000"
+        android:layout_toRightOf="@id/statetxt"
+        />
+
+    <TextView
+        android:id="@+id/statetxt"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@id/citytxt"
+        android:text="State"
+        android:textColor="#000" />
+</RelativeLayout>
