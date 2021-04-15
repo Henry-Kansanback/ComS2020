@@ -1,0 +1,184 @@
+:- ['airlines.pl'].
+%:- use_module(library(lists)).
+%%p(X,Y):-q(X),r(X,Y).
+%%p(X,X):-s(X).
+%%q(a).
+%%q(b).
+%%r(b,c).
+%%r(b,d).
+%%s(e).
+%%
+
+%%Origin, Destination, Route
+%%trip(Origin,Dest,[Price,Duration,NumAirlines,[Path]).
+
+%%append([],L,L).
+%%append([X|L1],[L2,[X|L3]]):-append(L1,L2,L3).
+
+
+%trip(Origin,Dest,):-flight(_,Origin,Dest,_,_,_)
+%trip():-flight(_,Origin,Dest,_,_,_),trip().
+%
+%for reach(a,B) will return true every B that will follow reach(a,B).
+% write a predicate: reach(A,B,Path), true if B is reachable from A by
+% following Path
+%
+% reach(A,B,[A,B]):-edge(A,B). will be matched if the path is exactly
+% (a,b), is equivalent to reach(A,B,Path):-Path=[A,B],edge(A,B).
+% reach(A,B,P):-edge(A,C),reach(C,B).
+%
+% reach(A,B,Path):-Path=[A,B],edge(A,B). //reachhelp(
+% reach(A,B,Path):-Path=[A|T],edge(A,C),reach(C,B,T).
+%
+% reach(A,B,Path):- reachhelp(A,B,Path,[A]).
+%
+% reachhelp(A,B,Path,Visited):- Path =[A,B], edge(A,B),
+% not(contains(Visited,B)).
+%
+% reachhelp(A,B,Path,Visited):- Path =[A|T],
+% edge(A,C), not(contains(Visited,C)),
+% reachhelp(C,B,T,[C|Visited]).
+%
+% contains(Array,Elt):- Array = [H|_], H = Elt.
+% contains(Array,Elt):- Array = [_|T], contains(T,Elt).
+%
+%
+/*
+trip(Origin,Dest,[Price,Duration,NumAirlines,[Path]]):-
+    flight(A,Origin,G,C,T),
+    Price is Price + C,
+    Duration is Duration + T,
+    %append(NumAirlines,A,[NumAirlines|A]),
+
+    NumAirlines is NumAirlines + memberAirline(A,NumAirlines,Path),
+    trip(G,Dest,Path).
+
+memberAirline(_,TotalAirlines,[]):- TotalAirlines is TotalAirlines + 1.
+
+memberAirline(Airline,TotalAirlines,AirlineSet):-
+    (Airline == sndelt(fstelt(AirlineSet)),
+    %member(Airline,[X|AirlineSet]),
+    TotalAirlines is TotalAirlines + 1
+    ; memberAirline(Airline,TotalAirlines,[_|AirlineSet]):- TotalAirlines is TotalAirlines + 0
+
+).
+
+sndelt([_, Inp|_], Inp).
+
+fstelt([],[]).
+fstelt([[In|_]|L], [In|P]):- fstelt(L,P).
+*/
+%%connected(X,Y):-flight(A,X,Y,C,T).
+%%connected(X,Y):-flight(A,Y,X,C,T).
+
+
+%%path(A,B,Path):-
+%%    travel(A,B,[A],Q),
+%%    reverse(Q,Path).
+%%travel(A,B,P,[B|P]):-
+%%    connected(A,B).
+%%travel(A,B,Visited,Path):-
+%%    connected(A,C),
+%%    C\== B,
+%%    \+member(C,Visited),
+%%    travel(C,B,[C|Visited],Path).
+
+%%pathfind(O,D,R):-flight(A,Origin,Dest,C,T),pathfind(Dest,Y).
+
+%Result is [Total Price, Duration of flights, Number of airlines, Path]
+%Path is [[Origin, Airline, Dest]...]
+%Flight is [Airline,Origin,Dest,Cost,Time of Flight]
+%Airport is [Airport or City, Tax, Delay]
+trip(Origin,Dest,R):-
+    reach(Origin,Dest,R).
+
+ reach(A,B,Final):-
+    %flight(Fl,A,_,Cost,Time),
+    airport(A,Cost,Time),
+    reachhelp(A,_,[],[A], [],Cost,Time,[Final], B).
+
+ reachhelp(A,FinalDest,Path,Visited,UsedAir,TCost,TTime,Final, FinalDest):-
+
+    flight(Fl,A,FinalDest,Cost,_),
+
+    not(contains(Visited,B)),
+    Path is [Path|[A, Fl ,B]],
+    addToAir(UsedAir,Fl),
+    len(UsedAir,N),
+    TCost is TCost + Cost,
+    Final is [TCost, TTime, N, Path].
+
+ reachhelp(A,B,Path,Visited,UsedAir,TCost,TTime,Final, FinalDest):-
+    flight(Fl,A,C,Cost,Time),
+    not(contains(Visited,C)),
+    addToAir(UsedAir,Fl),
+    Path is [[A,Fl,C]|Path],
+    addTaxDelay(Visited,C,Tax,Delay),
+    TCost is TCost + Cost,
+    TCost is TCost + Tax,
+    TTime is TTime + Time,
+    TTime is TTime + Delay,
+    reachhelp(C,B,Path,[C|Visited], UsedAir,TCost,TTime, Final, FinalDest).
+
+ contains(Array,Elt):- Array = [H|_], H = Elt.
+ contains(Array,Elt):- Array = [_|T], contains(T,Elt).
+
+addToAir(UsedAir,Fl):-
+   (    not(contains(UsedAir,Fl))
+   ->  UsedAir is [Fl|UsedAir]
+   ;   false).
+
+addTaxDelay(Visited,Airport, Tax,Delay):-
+    (not(contains(Visited,Airport))
+    -> airport(Airport,T,D), Delay is D, Tax is T
+                                         ;   Delay is 0, Tax is 0
+
+    ).
+
+len([], 0).
+len([_X|Xs], K) :-len(Xs, K1),K is K1 + 1.
+
+/**
+tripk(Origin,Dest,K,Route):-
+
+    .
+
+ reachk(A,B,Final):-
+    %flight(Fl,A,_,Cost,Time),
+    airport(A,Cost,Time),
+    reachhelpk(A,B,[],[A], [],Cost,Time,[Final], B).
+
+ reachhelpk(A,B,Path,Visited,UsedAir,TCost,TTime,Final, FinalDest):-
+    %Path = [A,B],
+
+    flight(Fl,A,FinalDest,Cost,_),
+
+	not(contains(Visited,B)),
+    Path is [Path|[A, Fl ,B]],
+    UsedAir is addToAir(UsedAir,Fl),
+    len(UsedAir,N),
+    TCost is TCost + Cost,
+    %TTime is TTime + Time,
+    Final is [TCost, TTime, N, Path]
+    .
+
+ reachhelpk(A,B,Path,Visited,UsedAir,TCost,TTime,Final, FinalDest):-
+    %Path =[A|T],
+	flight(Fl,A,C,Cost,Time),
+    not(contains(Visited,C)),
+    UsedAir is addToAir(UsedAir,Fl),
+    Path is [[A,Fl,C]|Path],
+    %airport(Fl,Tax,Delay),
+    addTaxDelay(Visited,C,Tax,Delay),
+    TCost is TCost + Cost,
+    TCost is TCost + Tax,
+    TTime is TTime + Time,
+    TTime is TTime + Delay,
+	reachhelpk(C,B,Path,[C|Visited], UsedAir,TCost,TTime, Final, FinalDest).
+*/
+
+
+sndelt([_, Inp|_], Inp).
+
+fstelt([],[]).
+fstelt([[In|_]|L], [In|P]):- fstelt(L,P).
